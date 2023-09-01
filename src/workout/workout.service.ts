@@ -10,4 +10,8 @@ export class WorkoutService {
   async createWorkout(createWorkoutDto: CreateWorkoutDto): Promise<Workout> {
     return this.workoutRepository.createWorkout(createWorkoutDto);
   }
+
+  async findAll(): Promise<Workout[]> {
+    return await this.workoutRepository.find();
+  }
 }
