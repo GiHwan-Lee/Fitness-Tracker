@@ -6,6 +6,8 @@ import {
   Post,
   Put,
   Delete,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { WorkoutService } from './workout.service';
 import { CreateWorkoutDto } from './dto/create-workout-dto';
@@ -18,6 +20,7 @@ export class WorkoutController {
 
   // 운동 기록 생성
   @Post()
+  @UsePipes(ValidationPipe)
   createWorkout(@Body() createWorkoutDto: CreateWorkoutDto): Promise<Workout> {
     return this.workoutService.createWorkout(createWorkoutDto);
   }
