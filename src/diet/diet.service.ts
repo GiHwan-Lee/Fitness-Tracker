@@ -40,4 +40,12 @@ export class DietService {
 
     return records.reduce((acc, record) => acc + record.calories, 0);
   }
+
+  async deleteDiet(id: number): Promise<void> {
+    const result = await this.dietRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Your ${id} is not found `);
+    }
+  }
 }

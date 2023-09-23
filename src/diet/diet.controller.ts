@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { DietService } from './diet.service';
 import { CreateDietDto } from './dto/create-diet-dto';
 import { Diet } from './diet.entity';
@@ -25,5 +33,10 @@ export class DietController {
   @Get('calories/:date')
   getDailyCalories(@Param('date') date: string): Promise<number> {
     return this.dietService.getDailyCalories(new Date(date));
+  }
+
+  @Delete(':id')
+  deleteDiet(@Param('id') id: number): Promise<void> {
+    return this.dietService.deleteDiet(id);
   }
 }
