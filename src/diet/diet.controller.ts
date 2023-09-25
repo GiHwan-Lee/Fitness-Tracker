@@ -35,6 +35,11 @@ export class DietController {
     return this.dietService.getDailyCalories(new Date(date));
   }
 
+  @Put(':id')
+  updateDiet(@Param('id') id: number, @Body() updateDietDto: UpdateDietDto) {
+    return this.dietService.updateDiet(id, updateDietDto);
+  }
+
   @Delete(':id')
   deleteDiet(@Param('id') id: number): Promise<void> {
     return this.dietService.deleteDiet(id);

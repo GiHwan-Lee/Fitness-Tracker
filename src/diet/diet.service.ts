@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { DietRepository } from './diet.repository';
 import { CreateDietDto } from './dto/create-diet-dto';
 import { Diet } from './diet.entity';
+import { UpdateDietDto } from './dto/update-diet-dto';
 
 @Injectable()
 export class DietService {
@@ -39,6 +40,18 @@ export class DietService {
       .getMany();
 
     return records.reduce((acc, record) => acc + record.calories, 0);
+  }
+
+  async updateDiet(id: number, updateDietDto: UpdateDietDto): Promise<Diet> {
+    const diet = await this.dietRepository.findOneById(id);
+
+    if (!diet) {
+      throw new NotFoundException(`Diet with ID ${id} not found`);
+    }
+
+    Object.assign(diet, updateDietDto);
+
+    return this.dietRepository.save(diet);
   }
 
   async deleteDiet(id: number): Promise<void> {
