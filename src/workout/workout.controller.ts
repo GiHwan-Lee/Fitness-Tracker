@@ -18,25 +18,27 @@ import { UpdateWorkoutDto } from './dto/update-workout-dto';
 export class WorkoutController {
   constructor(private workoutService: WorkoutService) {}
 
-  // 운동 기록 생성
+  // POST 요청을 통해 새로운 운동 기록을 생성
   @Post()
-  @UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe) // 유효성 검사를 위한 파이프를 사용
   createWorkout(@Body() createWorkoutDto: CreateWorkoutDto): Promise<Workout> {
     return this.workoutService.createWorkout(createWorkoutDto);
   }
 
-  // 모든 운동 기록 가져오기
+  // GET 요청을 통해 모든 운동 기록을 가져옴
   @Get('/')
   findAll(): Promise<Workout[]> {
     return this.workoutService.findAll();
   }
 
-  // 특정 운동 기록 가져오기 (나중에 user 모듈 만들면 그 때는 user별로 운동기록 가져오는 핸들러 만들어야 한다.)
+  // ID를 통해 특정 운동 기록을 가져옴
+  // (나중에 user 모듈이 생성되면 해당 사용자별로 운동 기록을 가져오는 기능을 추가해야 함.)
   @Get(':id')
   findOneById(@Param('id') id: number): Promise<Workout> {
     return this.workoutService.findOneById(id);
   }
 
+  // PUT 요청을 통해 특정 ID의 운동 기록을 업데이트
   @Put(':id')
   updateRecord(
     @Param('id') id: number,
@@ -45,6 +47,7 @@ export class WorkoutController {
     return this.workoutService.updateRecord(id, updateWorkoutDto);
   }
 
+  // DELETE 요청을 통해 특정 ID의 운동 기록을 삭제
   @Delete(':id')
   deleteWorkout(@Param('id') id: number): Promise<void> {
     return this.workoutService.deleteWorkout(id);
