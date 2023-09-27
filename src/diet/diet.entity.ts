@@ -8,7 +8,7 @@ import {
 
 @Entity()
 export class Diet extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn() // 이 데코레이터는 해당 열이 기본 키이며 자동으로 생성됨을 나타냅니다.
   id: number;
 
   @CreateDateColumn()
