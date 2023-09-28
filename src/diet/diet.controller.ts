@@ -6,6 +6,8 @@ import {
   Param,
   Put,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { DietService } from './diet.service';
 import { CreateDietDto } from './dto/create-diet-dto';
@@ -18,6 +20,7 @@ export class DietController {
 
   // 새로운 식단 기록을 생성
   @Post()
+  @UsePipes(ValidationPipe)
   createDiet(@Body() createDietDto: CreateDietDto): Promise<Diet> {
     return this.dietService.createDiet(createDietDto);
   }
